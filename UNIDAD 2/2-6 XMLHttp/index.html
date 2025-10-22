@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">PeticionXMLHttpRequest</button>
+    <button id="btn2">Peticion FETCH</button>
+    <button id="btn3">Peticion FETCHAA</button>
+
+    <div id="resp"></div>
+
+    <script>
+        document.getElementById("btn").addEventListener("click", cargarDatos);
+        document.getElementById("btn2").addEventListener("click",requestFetch);
+        document.getElementById("btn3").addEventListener("click",cargarDatosFetchAA)
+        function cargarDatos(){
+            let solicitud = new XMLHttpRequest();
+            solicitud.onload = function(){
+                //console.log(solicitud.response)
+                let objetoJS = JSON.parse(solicitud.response);
+                //console.log(objetoJS)
+                document.getElementById("resp").innerHTML=objetoJS.value;
+            
+            }
+            solicitud.open("GET","https://api.chucknorris.io/jokes/random", true);
+            solicitud.send();
+
+        }
+            function requestFetch(){
+            fetch('https://api.chucknorris.io/jokes/random')
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
+        };
+        
+         async function cargarDatosFetchAA() {
+             respuesta = await fetch ("https://api.chucknorris.io/jokes/random");
+             datojson = await respuesta.json();
+             console.log(datojson)
+        };
+                        
+    </script>
+</body>
+</html>

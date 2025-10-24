@@ -9,10 +9,15 @@
     <button id="btn">PeticionXMLHttpRequest</button>
     <button id="btn2">Peticion FETCH</button>
     <button id="btn3">Peticion FETCHAA</button>
+    <button id="bnt4">Peticion JQuery</button>
 
     <div id="resp"></div>
 
     <script>
+        $(document).ready(function () {
+    $("#btn2").click(cargarDatosConJQuery);
+});
+
         document.getElementById("btn").addEventListener("click", cargarDatos);
         document.getElementById("btn2").addEventListener("click",requestFetch);
         document.getElementById("btn3").addEventListener("click",cargarDatosFetchAA)
@@ -27,7 +32,6 @@
             }
             solicitud.open("GET","https://api.chucknorris.io/jokes/random", true);
             solicitud.send();
-
         }
             function requestFetch(){
             fetch('https://api.chucknorris.io/jokes/random')
@@ -36,7 +40,7 @@
             .catch(err => console.error(err));
         };
         
-         async function cargarDatosFetchAA() {
+        async function cargarDatosFetchAA() {
              respuesta = await fetch ("https://api.chucknorris.io/jokes/random");
              datojson = await respuesta.json();
              console.log(datojson)

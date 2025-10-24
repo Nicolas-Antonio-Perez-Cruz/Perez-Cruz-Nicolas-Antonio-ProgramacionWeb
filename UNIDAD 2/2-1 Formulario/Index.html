@@ -4,18 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario</title>
-    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 </head>
 <body>
-    <form action="https://httpbin.org/post" method="post" target="resultadoPOS1">
+    <form id="idForm" action="https://httpbin.org/post" method="post" target="resultadoPOS1">
         <label for="nombre">Nombre:</label>
         <input type="text" name="nombre" id="nombre">
         <br><br>
         <label for="apellido">Apellidos:</label>
         <input type="text" name="apellido" id="apellido">
         <br><br>
-        <button type="submit">Enviar</button>
+        <button type"submit">Enviar</button>
+        <button type="button" id="btnFetch">Enviar con Fetch</button>
     </form>
     <iframe name="resultadoPOS1"></iframe>
 </body>
+<script>
+    document.getElementById('btnFetch').addEventListener('click', function() {
+        const datosForm = new FormData(document.getElementById("idForm"));
+        const cadenaUrl = new URLSearchParams(datosForm).toString();
+
+        fetch("https://httpbin.org/post", {
+            method: "POST",
+            headers: {"Content-Type": "application/x-www-form-urlencoded"},
+            body: cadenaUrl
+        })
+        .then(response => response.json())
+        .then(dato => console.log(dato));
+    });
+</script>
 </html>
